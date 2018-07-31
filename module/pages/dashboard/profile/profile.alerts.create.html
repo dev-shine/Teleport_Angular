@@ -1,0 +1,112 @@
+
+<div class="col-md-6 full-block-busy-container">
+
+    <h4 class="text-uppercase">New Alert</h4>
+
+    <p>Send email notices when specified account level thresholds are crossed.</p>
+
+    <form class="form-horizontal" (ngSubmit)="onSubmit()" #newAlertForm="ngForm" *ngIf="Alert">
+
+        <fieldset>
+
+            <div class="form-group" [class.has-error]="! firstName.valid">
+                <label for="alert-firstName" class="col-md-3 control-label">First Name</label>
+                <div class="col-md-9">
+                    <input id="alert-firstName" class="form-control" type="text" [(ngModel)]="Alert.firstname" name="firstName" #firstName="ngModel" required>
+                    <span class="help-block">A <strong>first name</strong> is required.</span>
+                </div>
+            </div>
+
+            <div class="form-group" [class.has-error]="! lastName.valid">
+                <label for="alert-lastName" class="col-md-3 control-label">Last Name</label>
+                <div class="col-md-9">
+                    <input id="alert-lastName" class="form-control" type="text" [(ngModel)]="Alert.lastname" name="lastName" #lastName="ngModel" required>
+                    <span class="help-block">A <strong>last name</strong> is required.</span>
+                </div>
+            </div>
+
+            <div class="form-group" [class.has-error]="! email.valid">
+                <label for="alert-email" class="col-md-3 control-label">Email Address</label>
+                <div class="col-md-9">
+                    <input id="alert-email" class="form-control" type="email" [(ngModel)]="Alert.email" minlength="8" name="email" #email="ngModel" required>
+                    <span class="help-block">An <strong>email address</strong> is required.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="alert-phone" class="col-md-3 control-label">Phone Number</label>
+                <div class="col-md-9">
+                    <input id="alert-phone" class="form-control" type="tel" placeholder="Optional"
+                           [(ngModel)]="Alert.phone_no" name="phone" #phone="ngModel">
+                </div>
+            </div>
+
+            <p>&nbsp;</p>
+
+            <h5>Payment Receipts</h5>
+
+            <div class="form-group form-inline" [style.opacity]="Alert.send_receipt_on_payment ? 1 : 0.4">
+                <div class="col-md-12">
+                    <input title="Yes" type="checkbox" [(ngModel)]="Alert.send_receipt_on_payment" name="sendReceiptOnPayment" #sendReceiptOnPayment="ngModel">
+                    Send an email receipt when a payment is applied to this account.
+                </div>
+            </div>
+
+            <p>&nbsp;</p>
+
+            <h5>Account Balance Thresholds</h5>
+            <p>A zero balance email will always be sent.</p>
+
+            <div class="form-group form-inline" [class.has-error]="! isMinToZeroValid()" [style.opacity]="is.MinToZero ? 1 : 0.4">
+                <div class="col-md-12">
+                    <input title="Activate" type="checkbox" [(ngModel)]="is.MinToZero" name="isMinToZero" #isMinToZero="ngModel">
+                    Send an email approx.
+                    <input class="form-control text-right" type="number" style="width:60px"
+                           [(ngModel)]="Alert.account_balance.minutes_before_zero" name="minBeforeZero" #minBeforeZero="ngModel"
+                            [disabled]="! is.MinToZero">
+                    minutes before zero balance.
+                </div>
+            </div>
+
+            <div class="form-group form-inline" [class.has-error]="! isThresholdValid(1)" [style.opacity]="is.Threshold1 ? 1 : 0.4">
+                <div class="col-md-12">
+                    <input title="Activate" type="checkbox" [(ngModel)]="is.Threshold1" name="isThreshold1" #isThreshold1="ngModel">
+                    Send an email when the balance drops below $
+                    <input class="form-control text-left" type="number" style="width:80px"
+                           [(ngModel)]="Alert.account_balance.threshold1" name="threshold1" #threshold1="ngModel"
+                           [disabled]="! is.Threshold1">.
+                </div>
+            </div>
+
+            <div class="form-group form-inline" [class.has-error]="! isThresholdValid(2)" [style.opacity]="is.Threshold2 ? 1 : 0.4">
+                <div class="col-md-12">
+                    <input title="Activate" type="checkbox" [(ngModel)]="is.Threshold2" name="isThreshold2" #isThreshold2="ngModel">
+                    Send an email when the balance drops below $
+                    <input class="form-control text-left" type="number" style="width:80px"
+                           [(ngModel)]="Alert.account_balance.threshold2" name="threshold2" #threshold2="ngModel"
+                           [disabled]="! is.Threshold2">.
+                </div>
+            </div>
+
+            <div class="form-group form-inline" [class.has-error]="! isThresholdValid(3)" [style.opacity]="is.Threshold3 ? 1 : 0.4">
+                <div class="col-md-12">
+                    <input title="Activate" type="checkbox" [(ngModel)]="is.Threshold3" name="isThreshold3" #isThreshold3="ngModel">
+                    Send an email when the balance drops below $
+                    <input class="form-control text-left" type="number" style="width:80px"
+                           [(ngModel)]="Alert.account_balance.threshold3" name="threshold3" #threshold3="ngModel"
+                           [disabled]="! is.Threshold3">.
+                </div>
+            </div>
+
+            <div class="form-group text-right">
+                <button class="btn btn-link" type="button" [routerLink]="['/v1/account/alerts']">Cancel</button>
+                <button class="btn btn-success" type="submit" [disabled]="! newAlertForm.form.valid || ! isFormValid()" [allowAccess]="'account.alerts.create'">Create Alert</button>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+    <div class="full-block-busy" *ngIf="isBusy"></div>
+
+</div>

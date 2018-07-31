@@ -1,0 +1,65 @@
+
+<div *ngIf="TopUp">
+
+    <h5>Auto Top-Up</h5>
+
+    <p>This account is limited to spending <strong>${{TopUp.maxAmountPerDayLimit}}</strong> per day. Contact support to raise this limit.</p>
+
+    <form class="form-inline col-md-8" (ngSubmit)="onSubmit()" #topUpForm="ngForm">
+
+        <div class="row" *ngIf="! isEditTopUp && TopUp.amount > 0">
+            <div class="col-md-12" style="font-size:16px; line-height:40px">
+                While my balance is below <strong>{{ TopUp.balanceThreshold | currency:'USD':true:'1.2-2' }}</strong>
+                automatically charge my default payment method <strong>{{ TopUp.amount | currency:'USD':true:'1.2-2' }}</strong>.
+                <br>
+                Do not exceed charges of <strong>{{ TopUp.maxAmountPerDay | currency:'USD':true:'1.2-2' }}</strong> on any given day.
+            </div>
+        </div>
+
+        <div class="row" *ngIf="! isEditTopUp && TopUp.amount === 0">
+            <div class="col-md-12" style="font-size:16px; line-height:40px">
+                Auto Top-Up is not configured. Click EDIT to activate this service.
+            </div>
+        </div>
+
+        <div class="row" *ngIf="isEditTopUp">
+            <div class="col-md-12" style="font-size:16px; line-height:40px;">
+                While my balance is below
+                <span [class.has-error]="!! validateThreshold()" style="font-weight:bold">
+                    $<input style="width:70px;text-align:center" id="topup-edit-min-balance" class="form-control" type="number" [(ngModel)]="TopUp.balanceThreshold" name="minBalance" ngControl="minBalance" #minBalance="ngModel" required>
+                </span>
+                automatically charge my default payment method
+                <span [class.has-error]="!! validateAmount()" style="font-weight:bold">
+                    $<input style="width:70px;text-align:center" id="topup-edit-charge-amount" class="form-control" type="number" [(ngModel)]="TopUp.amount" name="chargeAmount" ngControl="chargeAmount" #chargeAmount="ngModel" required>
+                </span>.
+                <br>
+                Do not exceed charges of
+                <span [class.has-error]="!! validateMaxDaily()" style="font-weight:bold">
+                    $<input style="width:70px;text-align:center" id="topup-edit-day-max" class="form-control" type="number" [(ngModel)]="TopUp.maxAmountPerDay" name="dayMax" ngControl="dayMax" #dayMax="ngModel" required>
+                </span>
+                on any given day.
+            </div>
+        </div>
+
+        <div class="row" style="margin: 20px 0; min-height:25px; color:red;">
+            <div class="col-md-12" *ngIf="isEditTopUp">
+                <span *ngIf="!! validateAmount()">{{ validateAmount() }}</span>
+                <span *ngIf="!! validateThreshold()">{{ validateThreshold() }}</span>
+                <span *ngIf="!! validateMaxDaily()"> {{ validateMaxDaily() }}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12" *ngIf="isEditTopUp">
+                <button type="button" class="btn btn-link" (click)="onCancel()">Cancel</button>
+                <button type="submit" class="btn btn-success" [disabled]="!! (validateThreshold() || validateAmount() || validateMaxDaily())">Save</button>
+                <button type="button" class="btn btn-warning pull-right" (click)="onDeactivate()">Deactivate</button>
+            </div>
+            <div class="col-md-12" *ngIf="! isEditTopUp">
+                <button type="button" class="btn btn-default" (click)="onStartEditMode()" [allowAccess]="'account.billing.payments.update'">Edit</button>
+            </div>
+        </div>
+
+    </form>
+
+</div>

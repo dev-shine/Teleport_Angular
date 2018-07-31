@@ -1,0 +1,48 @@
+
+<div class="row">
+
+    <div class="col-md-4 col-md-offset-4" style="padding-top:50px">
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <h4 class="text-center">Forgot Password</h4>
+
+                <form class="form-horizontal" (ngSubmit)="onRecoverPassword()" #loginForm="ngForm">
+
+                    <div class="form-group" [class.has-error]="! isEmailValid(username.value)">
+                        <label class="col-md-2 control-label" for="dev-login-username">Email</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="dev-login-username" type="email" name="username" required
+                                   [(ngModel)]="userName" #username="ngModel">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <teleport-sp-recaptcha theme="light" sitekey="6Lf3RBETAAAAAKtkTgxjrn9AnYlhcfvh0tS7hFZo" [onReset]="resetCaptchaObservable()" (callback)="onCaptcha($event, true)" (expiredCallback)="onCaptcha($event, false)"></teleport-sp-recaptcha>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 text-center">
+                            <button class="btn btn-success" type="submit" [disabled]="! (loginForm.form.valid && isCaptchaOk && isEmailValid(username.value))">Recover My Password</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12 text-center">
+                <a class="btn btn-link" [routerLink]="['/login']">Back to log in.</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<teleport-loader-ui></teleport-loader-ui>

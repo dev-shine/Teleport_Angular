@@ -1,0 +1,37 @@
+import { OnDestroy } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import "rxjs/add/operator/first";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/toPromise";
+import { Store } from "@ngrx/store";
+import { TeleportCoreState } from "teleport-module-services/services/ngrx/index";
+import { APIv1State } from "teleport-module-services/services/v1/ngrx/index";
+import { IApplication } from "teleport-module-services/services/v1/models/Application";
+import { IntegrationsAWSService } from "../../../../services/integrations.aws.service";
+import { IAWS } from "../../../../models/interfaces";
+import { ModalService } from "../../../../services/modal.service";
+import { MessageService } from "../../../../services/message.service";
+import { TeleportLoaderService } from "teleport-module-loader";
+export declare class TeleportDevPortalAppIntegrationAwsComponent implements OnDestroy {
+    private route;
+    private aws;
+    private modal;
+    private message;
+    private store$;
+    private loader;
+    isEditing: boolean;
+    accessKey: string;
+    securityKey: string;
+    bucket: string;
+    region: string;
+    private _application;
+    private _aws;
+    constructor(route: ActivatedRoute, aws: IntegrationsAWSService, modal: ModalService, message: MessageService, store$: Store<TeleportCoreState & APIv1State>, loader: TeleportLoaderService);
+    ngOnDestroy(): void;
+    readonly App: IApplication;
+    readonly AWS: IAWS;
+    edit(): void;
+    clear(): void;
+    save(): void;
+    cancel(): void;
+}

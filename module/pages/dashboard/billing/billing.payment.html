@@ -1,0 +1,39 @@
+
+<div class="col-md-10">
+
+    <h4 class="text-uppercase">Make a Payment</h4>
+    <p>Enter the payment amount, set the payment method and press SUBMIT PAYMENT.</p>
+
+    <form class="form-horizontal" id="paymentForm" #paymentForm="ngForm">
+
+        <p class="clearfix">&nbsp;</p>
+
+        <div class="form-group clearfix" [class.has-error]="! payAmount.valid">
+            <label class="col-md-2 control-label" for="payment-amount">Amount</label>
+            <div class="col-md-6">
+                <input style="font-size:18pt" class="form-control" id="payment-amount" type="number" [(ngModel)]="amount" name="payAmount" #payAmount="ngModel" required>
+                <span class="help-block">A <strong>payment amount</strong> is required.</span>
+            </div>
+        </div>
+
+        <p class="clearfix">&nbsp;</p>
+
+        <div class="form-group clearfix">
+            <label class="col-md-2 control-label">Method</label>
+            <div class="col-md-6" style="min-height:65px; transition:height 500ms; background:url('img/squares.svg') center center no-repeat; background-size: contain;">
+                <div id="dropin-container" style="background:#f6f7f8" [allowAccess]="'account.billing.payments.update'"></div>
+            </div>
+        </div>
+
+        <p class="clearfix">&nbsp;</p>
+
+        <div class="form-group clearfix">
+            <div class="col-md-8 text-right">
+                <button class="btn btn-link" type="button" (click)="onCancel()">Cancel</button>
+                <button class="btn btn-success" type="submit" [disabled]="! paymentForm.form.valid || ! isReady" [allowAccess]="'account.billing.payments.create'">Submit Payment</button>
+            </div>
+        </div>
+
+    </form>
+
+</div>

@@ -1,0 +1,60 @@
+
+<div class="col-md-11">
+
+    <h4 class="text-uppercase">Users</h4>
+    <p>
+        Add, modify and delete portal users.
+        Users have login and admin-defined limited access to an account.
+        <button class="btn btn-link pull-right" [routerLink]="['/v1/account/users/create']">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            Create New User
+        </button>
+    </p>
+
+    <div class="row full-block-busy-container" style="margin-bottom:50px; min-height:200px">
+
+        <div class="table-responsive" *ngIf="!! Users && Users.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Position</th>
+                        <th>Verified</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of Users">
+                        <td>{{ user.lastName }}, {{ user.firstName }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.phoneNo || '--' }}</td>
+                        <td>{{ user.position || '--' }}</td>
+                        <td>
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true" [ngStyle]="{ opacity: user.status === 'active' ? 1 : 0.2 }"></span>
+                        </td>
+                        <td>
+                            <button class="btn btn-link" *ngIf="user.status === 'unverified'" (click)="resendInvite(user)" title="Resend Email Invite">
+                                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                            </button>
+                            <button class="btn btn-link" title="Edit the User"
+                                    [disabled]="! isEditable(user)"
+                                    [allowAccess]="'account.users.read account.users.update account.users.delete'"
+                                    [routerLink]="['/v1/account/users', user.id]"
+                            >
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="text-center" *ngIf="!! Users && Users.length === 0">You have no users. Sharing is caring.</h3>
+
+        <div class="full-block-busy" *ngIf="isBusy"></div>
+
+    </div>
+
+</div>

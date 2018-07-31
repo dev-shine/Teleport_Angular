@@ -1,0 +1,92 @@
+
+<div class="col-md-12 full-block-busy-container">
+
+    <h4 class="text-uppercase">Create New User</h4>
+    <p>Create a user with login and other explicit permissions.</p>
+
+    <form class="form-horizontal" (ngSubmit)="onSubmit()" #newUserForm="ngForm" *ngIf="!! User">
+
+        <fieldset>
+
+            <div class="col-md-6">
+
+                <teleport-dev-portal-role-picker [user]="User"></teleport-dev-portal-role-picker>
+
+                <div class="form-group clearfix" [class.has-error]="! userfirstname.valid">
+                    <label for="user-firstName" class="col-md-3 control-label">First Name</label>
+                    <div class="col-md-8">
+                        <input id="user-firstName" class="form-control" type="text" minlength="2" maxlength="50" required
+                               [(ngModel)]="User.firstName" name="userfirstname" #userfirstname="ngModel">
+                        <span class="help-block">A <strong>first name</strong> is required.</span>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix" [class.has-error]="! userlastname.valid">
+                    <label for="user-lastName" class="col-md-3 control-label">Last Name</label>
+                    <div class="col-md-8">
+                        <input id="user-lastName" class="form-control" type="text" minlength="2" maxlength="50" required
+                               [(ngModel)]="User.lastName" name="userlastname" #userlastname="ngModel">
+                        <span class="help-block">A <strong>last name</strong> is required.</span>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix" [class.has-error]="! isEmailValid() || ! useremail.valid">
+                    <label for="user-email" class="col-md-3 control-label">Email</label>
+                    <div class="col-md-8">
+                        <input id="user-email" class="form-control" type="email" required
+                               [(ngModel)]="User.email" name="useremail" #useremail="ngModel">
+                        <span class="help-block">A valid <strong>email address</strong> is required.</span>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <label for="user-phone" class="col-md-3 control-label">Phone Number</label>
+                    <div class="col-md-8">
+                        <input id="user-phone" class="form-control" type="tel" maxlength="20"
+                               [(ngModel)]="User.phoneNo" name="userphone" #userphone="ngModel">
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <label for="user-position" class="col-md-3 control-label">Position</label>
+                    <div class="col-md-8">
+                        <input id="user-position" class="form-control" type="text" maxlength="20"
+                               [(ngModel)]="User.position" name="userposition" #userposition="ngModel">
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <label for="user-notes" class="col-md-3 control-label">Notes</label>
+                    <div class="col-md-8">
+                        <input id="user-notes" class="form-control" type="text" maxlength="100"
+                               [(ngModel)]="User.notes" name="usernotes" #usernotes="ngModel">
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <div class="col-md-offset-3 col-md-8">
+                        <label>
+                            <input type="checkbox" [(ngModel)]="isSendInvite" name="sendinvite" #sendinvite="ngModel">
+                            Send an email to this user with login instructions.
+                        </label>
+                    </div>
+                </div>
+
+                <p>&nbsp;</p>
+
+                <div class="form-group clearfix">
+                    <div class="col-md-11 text-right">
+                        <button class="btn btn-link" [routerLink]="['/v1/account/users']">Cancel</button>
+                        <button class="btn btn-success" type="submit" [disabled]="! newUserForm.form.valid || ! isUserValid()" [allowAccess]="'account.users.create'">Create</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </fieldset>
+
+    </form>
+
+    <div class="full-block-busy" *ngIf="isBusy"></div>
+
+</div>

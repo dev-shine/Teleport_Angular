@@ -1,0 +1,12 @@
+demo/
+module/
+
+.*
+gulpfile.js
+karma*
+tsconfig.json
+tsconfig.ngc.json
+tslint.json
+webpack*
+README.md
+LICENSE.md

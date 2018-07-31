@@ -1,0 +1,13 @@
+**/.DS_Store
+**.log
+.idea/
+.vscode/
+_test-output/
+coverage/
+node_modules/
+
+yarn.lock
+yarn-error.log
+
+demo/app/**/*.js
+demo/app/**/*.js.map

@@ -1,0 +1,50 @@
+
+
+<div class="user-roles">
+
+    <div class="form-group clearfix">
+        <label class="col-md-3 control-label">User Role</label>
+        <div class="col-md-8">
+            <div class="btn-group user-roles-list">
+                <a class="btn btn-success" (click)="onRolesSelector()">
+                    {{ (role && role.role) || 'Custom Permissions...' }}
+                    <span class="glyphicon glyphicon-menu-down"></span>
+                </a>
+                <ul class="dropdown-menu" [ngStyle]="{ display: isRolesSelectorOpen ? 'block' : 'none' }">
+                    <li *ngFor="let role of Roles" [ngClass]="{ active: isRoleEvery(role) }">
+                        <a (click)="onRolesClick(role)">
+                            {{ role.role }} Role
+                        </a>
+                    </li>
+                    <li><a (click)="onRolesClick()">Custom Permissions...</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group clearfix">
+        <label class="col-md-3 control-label">Permissions</label>
+        <div class="col-md-8">
+            <div class="user-permissions">
+
+                <strong *ngIf="!! role">
+                    <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                    Editing permissions is locked.
+                </strong>
+                <strong *ngIf="! role">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    Editing permissions is allowed.
+                </strong>
+
+                <span>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true" title="CREATE"></span>
+                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true" title="READ"></span>
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true" title="UPDATE"></span>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" title="DELETE"></span>
+                </span>
+                <teleport-dev-portal-role-picker-row [dev]="Developer" [user]="user" [tree]="Tree" [readOnly]="!!role"></teleport-dev-portal-role-picker-row>
+            </div>
+        </div>
+    </div>
+
+</div>

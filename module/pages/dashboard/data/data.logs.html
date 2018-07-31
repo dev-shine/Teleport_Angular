@@ -1,0 +1,181 @@
+
+<div class="col-md-12">
+
+    <h4 class="text-uppercase">Call Logs</h4>
+
+    <p>View your account's call logs. Searches are based on Start Times. Max results: 1000.</p>
+
+    <div style="margin-bottom:50px;min-height:200px;">
+
+        <form class="logsFilter" (ngSubmit)="loadLogs()" #logsForm="ngForm">
+
+            <div class="form-group col-md-2">
+                <label for="beginDateInput">Begin Date/Time</label>
+                <!-- input type="datetime" class="form-control" id="beginDateInput" placeholder="One Hour Ago" [(ngModel)]="filters.beginDate" name="beginDate"-->
+                <md2-datepicker id="beginDateInput" name="beginDate" type="datetime" format="MM/DD/YYYY HH:mm" [(ngModel)]="filters.beginDate" [max]="filters.endDate"></md2-datepicker>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="endDateInput">End Date/Time</label>
+                <!--input type="datetime" class="form-control" id="endDateInput" placeholder="Now" [(ngModel)]="filters.endDate" name="endDate"-->
+                <md2-datepicker id="endDateInput" name="endDate" type="datetime" format="MM/DD/YYYY HH:mm" [(ngModel)]="filters.endDate" [min]="filters.beginDate"></md2-datepicker>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="appIdInput">App ID</label>
+                <select class="form-control" id="appIdInput" [(ngModel)]="filters.appId" name="appId">
+                    <option value="">All Apps</option>
+                    <option *ngFor="let app of Apps" [value]="app.name">{{ app.friendlyName }} ({{ app.name.slice(0,5) }}...{{ app.name.slice(-5) }})</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="durationInput">Min Duration (sec)</label>
+                <input type="number" class="form-control" id="durationInput" placeholder="0" [(ngModel)]="filters.connectTime" name="connectTime">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="directionInput">Direction</label>
+                <select class="form-control" id="directionInput" [(ngModel)]="filters.direction" name="direction">
+                    <option value="both">Both</option>
+                    <option value="inbound">Inbound</option>
+                    <option value="outbound">Outbound</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-2" style="padding-top:28px; text-align:right;">
+                <button type="submit" class="btn btn-success">Search</button>
+            </div>
+
+        </form>
+
+        <table class="table table-striped table-condensed table-sortable" style="font-size:10pt">
+            <thead>
+            <tr>
+                <th (click)="sortLogs('apiNo')"
+                    [class.sorterAsc]="isSortOn('apiNoAsc')"
+                    [class.sorterDesc]="isSortOn('apiNoDesc')"
+                >
+                    API No
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                </th>
+                <th (click)="sortLogs('callerNo')"
+                    [class.sorterAsc]="isSortOn('callerNoAsc')"
+                    [class.sorterDesc]="isSortOn('callerNoDesc')"
+                >
+                    Caller No
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                </th>
+                <th (click)="sortLogs('callId')"
+                    [class.sorterAsc]="isSortOn('callIdAsc')"
+                    [class.sorterDesc]="isSortOn('callIdDesc')"
+                >
+                    Call ID
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                </th>
+                <th (click)="sortLogs('type')"
+                    [class.sorterAsc]="isSortOn('typeAsc')"
+                    [class.sorterDesc]="isSortOn('typeDesc')"
+                >
+                    Type
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                </th>
+                <th (click)="sortLogs('direction')"
+                    [class.sorterAsc]="isSortOn('directionAsc')"
+                    [class.sorterDesc]="isSortOn('directionDesc')"
+                >
+                    Direction
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                </th>
+                <th (click)="sortLogs('status')"
+                    [class.sorterAsc]="isSortOn('statusAsc')"
+                    [class.sorterDesc]="isSortOn('statusDesc')"
+                >
+                    Status
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                </th>
+                <th (click)="sortLogs('duration')"
+                    [class.sorterAsc]="isSortOn('durationAsc')"
+                    [class.sorterDesc]="isSortOn('durationDesc')"
+                >
+                    Duration
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                </th>
+                <th (click)="sortLogs('startTime')"
+                    [class.sorterAsc]="isSortOn('startTimeAsc')"
+                    [class.sorterDesc]="isSortOn('startTimeDesc')"
+                >
+                    Start Time
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                </th>
+                <th class="hidden-xs hidden-sm"
+                    (click)="sortLogs('endTime')"
+                    [class.sorterAsc]="isSortOn('endTimeAsc')"
+                    [class.sorterDesc]="isSortOn('endTimeDesc')"
+                >
+                    End Time
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                </th>
+                <th class="hidden-xs hidden-sm"
+                    (click)="sortLogs('appId')"
+                    [class.sorterAsc]="isSortOn('appIdAsc')"
+                    [class.sorterDesc]="isSortOn('appIdDesc')"
+                >
+                    App ID
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                </th>
+                <th (click)="sortLogs('billedTime')"
+                    [class.sorterAsc]="isSortOn('billedTimeAsc')"
+                    [class.sorterDesc]="isSortOn('billedTimeDesc')"
+                >
+                    Billed
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                </th>
+                <th (click)="sortLogs('originApi')"
+                    [class.sorterAsc]="isSortOn('originApiAsc')"
+                    [class.sorterDesc]="isSortOn('originApiDesc')"
+                >
+                    Origin API
+                    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                </th>
+                <th class="hidden-xs hidden-sm">TXT</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let log of Logs">
+                <td>{{ log.api_no }}</td>
+                <td>{{ log.caller_no }}</td>
+                <td>{{ log.call_id }}</td>
+                <td>{{ log.type }}</td>
+                <td>{{ log.direction }}</td>
+                <td>{{ log.status }}</td>
+                <td>{{ log.connect_time_sec }}</td>
+                <td>{{ log.start_time | date:'short' }}</td>
+                <td class="hidden-xs hidden-sm">{{ log.end_time | date:'short' }}</td>
+                <td class="hidden-xs hidden-sm">{{ log.app_id.substr(0,4) }}...{{ log.app_id.slice(-4) }}</td>
+                <td>{{ log.connect_time_billed }}</td>
+                <td>{{ log.origin_api }}</td>
+                <td class="hidden-xs hidden-sm">{{ log.text_message }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h4 class="text-center" *ngIf="Logs.length === 0">No Logs Found</h4>
+
+        <h5 class="text-center" *ngIf="isTruncated">More logs are available. Adjust the date/times to narrow the results.</h5>
+
+    </div>
+
+</div>

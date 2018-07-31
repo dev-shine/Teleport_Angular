@@ -1,0 +1,66 @@
+
+
+<div class="col-md-10">
+
+    <h4 class="text-uppercase">Payments</h4>
+    <p>View your account balance and payment history. Make a payment.</p>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>
+                Account Balance:
+                <strong *ngIf="balance + 1">${{ balance | number:'1.2-4' }}</strong>
+                <strong *ngIf="! (balance + 1)"><span class="glyphicon glyphicon-refresh ani-spin" aria-hidden="true"></span></strong>
+                <a class="btn btn-link" [routerLink]="['/v1/account/payments/submit']" [allowAccess]="'account.billing.payments.create'">Make a Payment</a>
+                <a class="btn btn-link" [routerLink]="['/v1/account/payments/settings']" [allowAccess]="'account.billing.payments.read'">Payment Settings</a>
+            </h5>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+        <div class="col-xs-4">
+            <h5>Payment History</h5>
+        </div>
+
+        <div class="form-inline col-xs-8 text-right">
+            <!--input class="form-control" type="date" [(ngModel)]="historyFrom"-->
+            <md2-datepicker id="historyFromInput" name="historyFrom" type="date" format="MM/DD/YYYY" [(ngModel)]="historyFrom" [max]="historyTo" style="display:inline-block"></md2-datepicker>
+            &nbsp; to &nbsp;
+            <!--input class="form-control" type="date" [(ngModel)]="historyTo"-->
+            <md2-datepicker id="historyToInput" name="historyTo" type="date" format="MM/DD/YYYY" [(ngModel)]="historyTo" [min]="historyFrom" style="display:inline-block"></md2-datepicker>
+            <button class="btn btn-link" type="button" (click)="reloadPaymentHistory()" [allowAccess]="'account.billing.payments.read'">Search</button>
+        </div>
+
+        <div class="col-md-12">
+
+            <table class="table" *ngIf="Payments && Payments.length">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Submitted On</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let payment of Payments">
+                    <td>{{ payment.id }}</td>
+                    <td>{{ payment.submitted_on | date:"short" }}</td>
+                    <td>{{ payment.description }}</td>
+                    <td>${{ payment.amount | number:'1.2-2' }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h5 class="text-center" *ngIf="! Payments || ! Payments.length">
+                No Payments were found.
+            </h5>
+
+        </div>
+
+    </div>
+
+</div>

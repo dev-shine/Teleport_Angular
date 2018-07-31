@@ -1,0 +1,65 @@
+
+<div class="row app-menu hidden-sm hidden-xs">
+
+    <div class="col-md-3 text-left">
+        <a [routerLink]="['/dashboard/account']"><img class="logo" src="img/shoutpoint_logo.png"></a>
+    </div>
+    <div class="col-md-6 text-center">
+        <nav>
+            <a class="btn btn-link" [routerLink]="['/dashboard/account']" [routerLinkActive]="['active']" [allowAccess]="'account.me.read'">Account</a>
+            <a class="btn btn-link" [routerLink]="['/dashboard/applications']" [routerLinkActive]="['active']" [allowAccess]="'account.applications.app.read'">Applications</a>
+            <a class="btn btn-link" [routerLink]="['/dashboard/usage']" [routerLinkActive]="['active']" [allowAccess]="'account.usage.read'">Usage</a>
+            <a class="btn btn-link" [routerLink]="['/dashboard/logs']" [routerLinkActive]="['active']" [allowAccess]="'account.logs.read'">Logs</a>
+            <a class="btn btn-link" [routerLink]="['/dashboard/support']" [routerLinkActive]="['active']">Support</a>
+        </nav>
+    </div>
+    <div class="col-md-3 text-right login-block" *ngIf="Session">
+        <a class="btn btn-link" [routerLink]="['/dashboard/account']" [allowAccess]="'account.me.read'">HI {{ Session.developer.firstName }}!</a>
+        <button class="btn btn-default" onclick="location.href='http://developers.shoutpoint.com'">Docs</button>
+        <span></span>
+    </div>
+
+</div>
+
+<div class="row app-menu mobile visible-sm-block visible-xs-block">
+
+    <!--a class="btn btn-link" (click)="isDevBotOpen = true" style="right: 84px; top: -18px; width: 40px; padding: 0; height: 40px;">
+        <img src="img/devbot-white.png" style="width:32px;margin:2px 0;cursor:pointer;">
+    </a-->
+
+    <a *ngIf="! isSideNavOpen" class="btn btn-link" (click)="isSideNavOpen = true"><span class="glyphicon glyphicon-th-list"></span></a>
+    <a *ngIf="isSideNavOpen" class="btn btn-link" (click)="isSideNavOpen = false"><span class="glyphicon glyphicon-remove" style="line-height:35pt"></span></a>
+</div>
+
+
+<div class="row" style="padding-top: 14px;">
+
+    <div class="col-md-2 left-side-nav" [class.show-menu]="isSideNavOpen">
+
+        <ui-dashboard-sidenav></ui-dashboard-sidenav>
+
+        <h6>Account ID<br>
+            <strong>{{ accountId | slice:0:5 }}...{{ accountId | slice:-5 }}</strong>
+        </h6>
+
+        <h6 class="visible-md-block visible-lg-block">Current Balance
+            <strong *ngIf="! (balance + 1)"><span class="glyphicon glyphicon-refresh ani-spin" aria-hidden="true"></span></strong>
+            <br>
+            <strong *ngIf="balance + 1">${{ balance | number:'1.2-2' }}</strong>
+        </h6>
+
+        <div class="visible-sm-block-OFF visible-xs-block-OFF" style="position:fixed;bottom:15px;">
+            <a style="color:white;background:transparent;" class="btn btn-link" [routerLink]="['/dashboard/logout']">Logout</a>
+        </div>
+
+    </div>
+
+    <div class="col-md-10 col-sm-12 main-page">
+        <router-outlet></router-outlet>
+    </div>
+
+</div>
+
+
+<!--img src="img/devbot-white.png" (click)="isDevBotOpen = true" style="margin-left: -24px; width: 48px; border: 5px solid transparent; border-radius: 24px; box-shadow: 1px 2px 3px rgba(0,0,0,0.2); cursor: pointer; left: 16.666%; position: fixed; background: #009bde; bottom: 12px;">
+<ui-bot [isDevBotOpenIn]="isDevBotOpen" (isDevBotOpenOut)="isDevBotOpen = $event"></ui-bot-->

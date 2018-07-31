@@ -1,0 +1,65 @@
+
+div.alert-panel > div {
+
+  overflow: hidden;
+  margin: 15px 0;
+  padding: 0 15px;
+  height: 230px;
+  position: relative;
+  background: white;
+  border-top: 3px solid #900;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+
+  > h4 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
+  > div {
+
+    padding-left: 26px;
+    font-size: 13pt;
+
+    > span {
+      padding-right: 10px;
+    }
+
+    @media(max-width: 400px) {
+      font-size: 11pt;
+    }
+  }
+
+  > p:last-child {
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+  }
+}
+
+div.new-alert-panel > div {
+
+  overflow: hidden;
+  margin: 15px 0;
+  padding: 0 15px;
+  height: 230px;
+  position: relative;
+  border: 4px dashed #ddd;
+  border-radius: 12px;
+  text-align: center;
+
+  a {
+    margin-top: 90px;
+  }
+
+  @media(max-width: 933px) {
+
+    height: 74px;
+
+    a {
+      margin-top: 13px;
+    }
+  }
+}

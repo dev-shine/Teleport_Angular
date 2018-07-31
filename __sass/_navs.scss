@@ -1,0 +1,143 @@
+
+div.top-menu {
+
+  background: white;
+
+  padding: 20px 0;
+
+  img.logo {
+    min-width: 145px;
+    max-height: 65px;
+  }
+}
+
+div.app-menu {
+
+  > div {
+    padding: 5px 0;
+    height: 75px;
+
+    &.login-block {
+
+      button {
+        color: #9d9d9d;
+        font-weight: bold;
+        transition: all 0s;
+        &:hover {
+          color: white;
+        }
+      }
+
+      span {
+        display: inline-block;
+        width: 45px;
+      }
+    }
+  }
+
+  background: $clrMd;
+  height: 75px;
+
+  img.logo {
+    margin-left: 45px;
+    height: 65px;
+  }
+
+  a {
+    height: 65px;
+
+    line-height: 55px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: $clrLt !important;
+    background: $clrMd !important;
+
+    &.active, &:hover, &:active {
+      color: white !important;
+    }
+  }
+
+  &.mobile {
+
+    position: relative;
+    background: $clrLeftSideNav;
+    height: 35px;
+    z-index: 200;
+
+    a {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      background: $clrLeftSideNav;
+      width: 60px;
+      height: 60px;
+      border-radius: 30px;
+
+      span {
+        font-size: 20pt;
+        line-height: 32pt;
+      }
+    }
+  }
+}
+
+div.left-side-nav {
+
+  // background: $clrLeftSideNav;
+
+  color: white;
+
+  transition: left 500ms;
+
+  h4, h5, h6 {
+    color: white;
+  }
+
+  ul {
+    list-style: none;
+    margin: 30px 0;
+    padding: 0;
+    font-size: 12pt;
+    line-height: 28pt;
+
+    li {
+      a {
+        color: white;
+      }
+
+      &.active, &:active {
+        font-weight: 700;
+      }
+
+      > ul {
+        margin: 0 0 0 20px;
+      }
+    }
+  }
+
+  @media(max-width: 993px) {
+
+    position: fixed;
+    top: 0;
+    left: -240px;
+    bottom: 0;
+    background: $clrLeftSideNav;
+    z-index: 1000;
+    padding-top: 15px;
+    width: 240px;
+    font-size: 12pt;
+    line-height: 30pt;
+    box-shadow: none;
+
+    ul {
+      margin-top: 0;
+      padding-left: 20px;
+    }
+
+    &.show-menu {
+      left: 0;
+      box-shadow: 4px 0 8px rgba(0,0,0,0.4);
+    }
+  }
+}

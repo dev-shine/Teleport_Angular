@@ -1,0 +1,34 @@
+import { OnInit, OnDestroy } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import "rxjs/add/operator/filter";
+import "rxjs/add/operator/first";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/takeUntil";
+import { Store, ReducerManagerDispatcher } from "@ngrx/store";
+import { TeleportCoreState } from "teleport-module-services/services/ngrx/index";
+import { APIv1State } from "teleport-module-services/services/v1/ngrx/index";
+import { IApplication } from "teleport-module-services/services/v1/models/Application";
+import { ModalService } from "../../../services/modal.service";
+export declare class TeleportDevPortalAppByIdComponent implements OnInit, OnDestroy {
+    private router;
+    private modal;
+    private route;
+    private store$;
+    private dispatcher;
+    isBusy: boolean;
+    isEditing: boolean;
+    appId: string;
+    appName: string;
+    appNotes: string;
+    private _developer;
+    private _application;
+    private unsubscriber;
+    constructor(router: Router, modal: ModalService, route: ActivatedRoute, store$: Store<TeleportCoreState & APIv1State>, dispatcher: ReducerManagerDispatcher);
+    ngOnInit(): void;
+    ngOnDestroy(): void;
+    readonly App: IApplication;
+    editApp(): void;
+    deleteApp(): void;
+    saveChanges(): void;
+    cancelChanges(): void;
+}

@@ -1,0 +1,194 @@
+
+<div class="row">
+
+    <div class="col-md-offset-4 col-md-4 registration-block" style="padding-top:30px">
+
+        <div class="panel panel-default panel-body" *ngIf="! isSuccess">
+
+            <h4 class="text-center">Portal Registration</h4>
+
+            <form class="form-horizontal" (ngSubmit)="onSubmit()" #registrationForm="ngForm">
+
+                <div class="form-group" [class.has-error]="! isEmailValid(email.value)">
+                    <label class="col-md-3 control-label" for="reg-email">Email</label>
+                    <div class="col-md-9">
+                        <input class="form-control" id="reg-email" type="email" required
+                               [(ngModel)]="form.email" name="email" #email="ngModel">
+                        <span class="help-block">Your <strong>email address</strong> is required.</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        Your password must be at least 8 characters with upper &amp; lowercase, numbers and special characters (!@#$, etc.).
+                    </div>
+                </div>
+
+                <div class="form-group" [class.has-error]="! isPasswordValid(password.value)">
+                    <label class="col-md-3 control-label" for="reg-password">Password</label>
+                    <div class="col-md-9">
+                        <input class="form-control" id="reg-password" type="password" minlength="8" required
+                               [(ngModel)]="form.password" name="password" #password="ngModel" >
+                        <span class="help-block">A valid <strong>password</strong> is required.</span>
+                    </div>
+                </div>
+
+                <div class="form-group" [class.has-error]="! passwordsMatch()">
+                    <div class="col-md-9 col-md-offset-3">
+                        <input class="form-control" id="reg-passwordVerify" type="password" minlength="8" required
+                               placeholder="Re-enter the password"
+                               [(ngModel)]="form.passwordVerify" name="passwordVerify" #passwordVerify="ngModel">
+                        <span class="help-block">Your <strong>password fields</strong> must match.</span>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="form-group" [class.has-error]="! firstname.valid">
+                    <label class="col-md-3 control-label" for="reg-firstname">First name</label>
+                    <div class="col-md-9">
+                        <input class="form-control" id="reg-firstname" type="text" minlength="2" required
+                               [(ngModel)]="form.firstName" name="firstname" #firstname="ngModel">
+                        <span class="help-block">Your <strong>first name</strong> is required.</span>
+                    </div>
+                </div>
+
+                <div class="form-group" [class.has-error]="! lastname.valid">
+                    <label class="col-md-3 control-label" for="reg-lastname">Last name</label>
+                    <div class="col-md-9">
+                        <input class="form-control" id="reg-lastname" type="text" minlength="2" required
+                               [(ngModel)]="form.lastName" name="lastname" #lastname="ngModel">
+                        <span class="help-block">Your <strong>last name</strong> is required.</span>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="reg-phone">Phone Number</label>
+                    <div class="col-md-9">
+                        <input class="form-control" id="reg-phone" type="tel"
+                               placeholder="Optional"
+                               [(ngModel)]="form.phoneNo" name="phone" #phone="ngModel">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="reg-company">Company</label>
+                    <div class="col-md-9">
+                        <input class="form-control" id="reg-company" type="text"
+                               placeholder="Optional"
+                               [(ngModel)]="form.company" name="company" #company="ngModel">
+                    </div>
+                </div>
+
+                <div style="background:#555658; margin:40px -15px; padding:10px 30px; color:#ccc;">
+                    <div class="form-group">
+                        <h5 style="text-align:center;color:#ddd;margin-bottom:25px;">Help Us Serve You Better // Optional</h5>
+                        <h6 style="color:#ddd;font-weight:bold;">What best describes you?</h6>
+                        <div class="checkbox">
+                            <label class="col-md-3 checkbox"><input [(ngModel)]="form.interests['a8295093fb']" name="fi_a8295093fb" type="checkbox"> Developer</label>
+                            <label class="col-md-5 checkbox"><input [(ngModel)]="form.interests['9e698054c6']" name="fi_9e698054c6" type="checkbox"> Product Manager / CEO</label>
+                            <label class="col-md-4 checkbox"><input [(ngModel)]="form.interests['fc05611866']" name="fi_fc05611866" type="checkbox"> Other</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h6 style="color:#ddd;font-weight:bold;">What services are you interested in using?</h6>
+                        <div class="checkbox">
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['bdd83ef858']" name="fi_bdd83ef858" type="checkbox"> Voice</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['57bd4ee702']" name="fi_57bd4ee702" type="checkbox"> SMS (long code)</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['40fa57da6e']" name="fi_40fa57da6e" type="checkbox"> SMS (short code)</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['7d8445c126']" name="fi_7d8445c126" type="checkbox"> Phone Number Provisioning</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['9484adc00d']" name="fi_9484adc00d" type="checkbox"> Phone Number Information Lookup</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['e7742109d3']" name="fi_e7742109d3" type="checkbox"> SIP</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['9ec546b64b']" name="fi_9ec546b64b" type="checkbox"> Call Recording</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h6 style="color:#ddd;font-weight:bold;">What are you hoping to do?</h6>
+                        <div class="checkbox">
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['a0cc6261b1']" name="fi_a0cc6261b1" type="checkbox"> Automated Message Delivery<br>(alerts, reminders, notifications)</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['2858a6097a']" name="fi_2858a6097a" type="checkbox"> Batch Message Delivery<br>(incl. emergency)</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['7fd609f30a']" name="fi_7fd609f30a" type="checkbox"> Call Tracking</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['1d810e4ac2']" name="fi_1d810e4ac2" type="checkbox"> Click To Talk</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['c0269dc4a8']" name="fi_c0269dc4a8" type="checkbox"> Contact Center (inbound)</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['bfcf74aefb']" name="fi_bfcf74aefb" type="checkbox"> Contact Center (outbound)</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['752d3278f9']" name="fi_752d3278f9" type="checkbox"> Conferencing</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['257889ddec']" name="fi_257889ddec" type="checkbox"> CRM Integration</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['595afdd9b7']" name="fi_595afdd9b7" type="checkbox"> IVR</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['84709d0d55']" name="fi_84709d0d55" type="checkbox"> Phone Survey</label>
+                            <label class="col-md-12 checkbox"><input [(ngModel)]="form.interests['230580576f']" name="fi_230580576f" type="checkbox"> Two-Factor Authentication</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['cba471e2a0']" name="fi_cba471e2a0" type="checkbox"> Two-Way Messaging<br>(human to computer)</label>
+                            <label class="col-md-6 checkbox"><input [(ngModel)]="form.interests['7300672ca4']" name="fi_7300672ca4" type="checkbox"> Two-Way Messaging<br>(human to human)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h6 style="color:#ddd;font-weight:bold;">What programming language(s) do you prefer?</h6>
+                        <div class="checkbox">
+                            <label class="col-md-3 checkbox"><input [(ngModel)]="form.interests['80b55cf8b7']" name="fi_80b55cf8b7" type="checkbox"> Apex</label>
+                            <label class="col-md-3 checkbox"><input [(ngModel)]="form.interests['cbbf207668']" name="fi_cbbf207668" type="checkbox"> C#</label>
+                            <label class="col-md-3 checkbox"><input [(ngModel)]="form.interests['73dc047e2f']" name="fi_73dc047e2f" type="checkbox"> Go</label>
+                            <label class="col-md-3 checkbox"><input [(ngModel)]="form.interests['d7fed5845a']" name="fi_d7fed5845a" type="checkbox"> Java</label>
+                            <label class="col-md-3 checkbox"><input [(ngModel)]="form.interests['8bb341676e']" name="fi_8bb341676e" type="checkbox"> JavaScript</label>
+                            <label class="col-md-3 checkbox"><input [(ngModel)]="form.interests['8d5277ad05']" name="fi_8d5277ad05" type="checkbox"> PHP</label>
+                            <label class="col-md-3 checkbox"><input [(ngModel)]="form.interests['90a9ca5b20']" name="fi_90a9ca5b20" type="checkbox"> Python</label>
+                            <label class="col-md-3 checkbox"><input [(ngModel)]="form.interests['1c9ab4f444']" name="fi_1c9ab4f444" type="checkbox"> Ruby</label>
+                            <label class="col-md-3 checkbox"><input [(ngModel)]="form.interests['4865fa865a']" name="fi_4865fa865a" type="checkbox"> Scala</label>
+                            <label class="col-md-5 checkbox"><input [(ngModel)]="form.interests['219035e41b']" name="fi_219035e41b" type="checkbox"> Swift/Obj-C</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" [class.has-error]="! tc_agree.value">
+                    <div class="col-md-12">
+                        <label>
+                            <input title="Check to agree to the Terms of Service and Privacy Policy." type="checkbox"
+                                   [(ngModel)]="form.tc_agree" name="tc_agree" #tc_agree="ngModel" required>
+                            I agree to the
+                            <a href="http://shoutpoint.com/terms/" target="_blank">Terms of Service</a> and
+                            <a href="http://shoutpoint.com/privacy/" target="_blank">Privacy Policy</a>.
+                        </label>
+                        <span class="help-block" style="padding-left:27px">Click the checkbox to agree.</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <teleport-sp-recaptcha theme="light" sitekey="6Lf3RBETAAAAAKtkTgxjrn9AnYlhcfvh0tS7hFZo" [onReset]="resetCaptchaObservable()" (callback)="onCaptcha($event, true)" (expiredCallback)="onCaptcha(null, false)"></teleport-sp-recaptcha>
+                    </div>
+                </div>
+
+                <div class="form-group" *ngIf="! isSubmitted">
+                    <div class="col-md-12 text-center">
+                        <button class="btn btn-success btn-lg" type="submit" style="width:160px" [disabled]="! (registrationForm.form.valid && passwordsMatch() && isCaptchaOk && tc_agree.value && isEmailValid(email.value) && isPasswordValid(password.value))">Register Now</button>
+                    </div>
+                </div>
+
+                <div class="form-group" *ngIf="isSubmitted">
+                    <div class="col-md-12 text-center">
+                        <button class="btn btn-success btn-lg" type="button" style="width:160px">
+                            <span class="glyphicon glyphicon-refresh ani-spin"></span>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div *ngIf="isSuccess" style="text-align: center">
+
+            <h4>Your account has been setup.</h4>
+            <p>&nbsp;</p>
+            <h5>Login to start communicating now.</h5>
+            <p>&nbsp;</p>
+            <h5><a class="btn btn-default" [routerLink]="['/login']">Log In</a></h5>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,77 @@
+
+form {
+
+  > fieldset {
+
+    div.form-group {
+      transition: margin-bottom 500ms;
+
+      &.bigger {
+
+        height: 40px;
+
+        label {
+          font-size: 14pt;
+        }
+
+        input {
+          font-size: 14pt;
+          font-weight: bold;
+        }
+      }
+
+      select {
+        background-position: 98% center;
+      }
+    }
+  }
+
+  span.help-block {
+    overflow: hidden;
+    opacity: 0;
+    height: 0;
+    transition: all 500ms, height 1s;
+  }
+
+  .has-error span.help-block {
+    height: 23px;
+    opacity: 1;
+    transition: all 1s, height 250ms;
+  }
+
+  span.form-control-feedback {
+    transition: opacity 500ms;
+  }
+}
+
+form > fieldset:disabled {
+
+  div.form-group {
+    margin-bottom: 0;
+  }
+
+  label.control-label {
+    color: inherit;
+  }
+
+  input.form-control {
+    box-shadow: none;
+  }
+
+  span.help-block {
+    height: 0;
+    margin: 0;
+  }
+
+  span.form-control-feedback {
+    opacity: 0;
+  }
+
+  .show-on-disabled {
+    display: inherit;
+  }
+
+  .hide-on-disabled {
+    display: none;
+  }
+}

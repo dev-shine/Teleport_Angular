@@ -1,0 +1,173 @@
+
+teleport-dev-portal-role-picker {
+
+  /**
+   * USER ROLES
+   */
+  div.user-roles {
+
+    div.user-roles-list {
+
+      margin: 0;
+      width: 100%;
+
+      > a {
+        padding-right: 20px;
+        min-width: 200px;
+        text-align: left;
+
+        > span {
+          position: absolute;
+          top: 10px;
+          right: 7px;
+        }
+      }
+
+      > ul {
+        width: 100%;
+
+        > li {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+
+  /**
+   * USER PERMISSIONS
+   */
+  div.user-permissions {
+
+    margin: 7px -15px 0 -15px;
+
+    > strong {
+      margin-left: 12px;
+    }
+
+    > span {
+
+      float: right;
+      margin-right: 18px;
+
+      > span {
+        margin: 0 3px;
+        font-size: 13.5px;
+      }
+    }
+
+    > teleport-dev-portal-role-picker-row > ul {
+      padding-right: 4px !important;
+    }
+
+    teleport-dev-portal-role-picker-row {
+
+      > ul {
+
+        overflow: hidden;
+        list-style: none;
+        margin: 0;
+        padding: 10px 0 0 0;
+        width: 100%;
+
+        transition: 400ms transform, 400ms opacity;
+
+        > li {
+
+          margin: 4px 0 4px 4px;
+          padding: 6px 10px 6px 6px;
+          font-size: 16px;
+          line-height: 14px;
+          border-radius: 6px;
+
+          &:first-child {
+            border: none;
+          }
+
+          > a {
+
+            margin-right: 10px;
+            cursor: pointer;
+
+            > span {
+              transform: rotate(90deg);
+              transition: 200ms transform;
+              transform-origin: 50% 50%;
+            }
+          }
+
+          > b {
+            margin-right: 10px;
+            color: #ddd;
+          }
+
+          > span {
+
+            float: right;
+            font-size: 18px;
+
+            > span {
+
+              margin: 0 3px;
+
+              &:hover {
+                color: black;
+                cursor: pointer;
+              }
+
+              &.glyphicon-ok-sign{
+
+                color: #898;
+
+                &.exact {
+                  color: #6c6;
+                  transform: scale(1.2);
+                }
+              }
+
+              &.glyphicon-unchecked {
+                opacity: 0.3;
+              }
+
+              &.disabled {
+                opacity: 0.1;
+                pointer-events: none;
+              }
+            }
+          }
+
+          > teleport-dev-portal-role-picker-row {
+
+            > ul {
+
+              padding-left: 20px;
+              background: none;
+              box-shadow: none;
+
+              > li {
+                padding-right: 0;
+              }
+            }
+          }
+
+          &.collapsed {
+
+            > a > span {
+              transform: rotate(0deg);
+            }
+
+            > teleport-dev-portal-role-picker-row > ul {
+              height: 0;
+              transform: translateX(110px);
+              opacity: 0;
+            }
+          }
+
+          &:hover {
+            background: rgba(0,50,0,0.03);
+          }
+        }
+      }
+    }
+  }
+}

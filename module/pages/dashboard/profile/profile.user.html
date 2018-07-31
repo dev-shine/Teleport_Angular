@@ -1,0 +1,91 @@
+
+<div class="col-md-11" *ngIf="User">
+
+    <h4 class="text-uppercase">My Profile</h4>
+
+    <form class="form-horizontal col-md-8" (ngSubmit)="onSubmit()" #profileForm="ngForm">
+
+        <fieldset [disabled]="! isEditProfile">
+
+            <div class="form-group" [class.has-error]="!(firstName.pristine || firstName.valid)">
+                <label for="profile-edit-firstName" class="col-md-2 control-label">First Name</label>
+                <div class="col-md-10">
+                    <input id="profile-edit-firstName" class="form-control" type="text" [(ngModel)]="User.firstName" name="firstName" #firstName="ngModel" required>
+                    <span class="help-block">Your <strong>first name</strong> is required.</span>
+                </div>
+            </div>
+            <div class="form-group" [class.has-error]="!(lastName.pristine || lastName.valid)">
+                <label for="profile-edit-lastName" class="col-md-2 control-label">Last Name</label>
+                <div class="col-md-10">
+                    <input id="profile-edit-lastName" class="form-control" type="text" [(ngModel)]="User.lastName" name="lastName" #lastName="ngModel" required>
+                    <span class="help-block">Your <strong>last name</strong> is required.</span>
+                </div>
+            </div>
+            <div class="form-group" [class.has-error]="! isEmailValid(email.value)">
+                <label for="profile-edit-email" class="col-md-2 control-label">Email</label>
+                <div class="col-md-10">
+                    <input id="profile-edit-email" class="form-control" type="email" [(ngModel)]="User.email" name="email" #email="ngModel" required>
+                    <span class="help-block">An <strong>email address</strong> is required.</span>
+                </div>
+            </div>
+
+            <div class="form-group hide-on-disabled">
+                <label class="col-md-2 control-label">Password</label>
+                <div class="col-md-10">
+                    <a (click)="isChangePassword = !isChangePassword" class="btn btn-link">Change Password...</a>
+                </div>
+            </div>
+
+            <div class="form-group" [class.has-error]="! phone.valid">
+                <label for="profile-edit-phone" class="col-md-2 control-label">Phone</label>
+                <div class="col-md-10">
+                    <input id="profile-edit-phone" class="form-control" type="tel" [(ngModel)]="User.phoneNo" name="phone" #phone="ngModel">
+                    <span class="help-block">The <strong>phone number</strong> is not valid.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="profile-edit-position" class="col-md-2 control-label">Position</label>
+                <div class="col-md-10">
+                    <input id="profile-edit-position" class="form-control" type="text" [(ngModel)]="User.position" name="position" #position="ngModel">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="profile-edit-notes" class="col-md-2 control-label">Notes</label>
+                <div class="col-md-10">
+                    <input id="profile-edit-notes" class="form-control" type="text" [(ngModel)]="User.notes" name="notes" #notes="ngModel">
+                </div>
+            </div>
+
+            <div class="form-group hide-on-disabled">
+                <div class="col-md-10 col-md-offset-2">
+                    <button type="button" class="btn btn-link" (click)="onCancel()">Cancel</button>
+                    <button type="submit" class="btn btn-success" [disabled]="! profileForm.form.valid || profileForm.form.pristine || ! isEmailValid(email.value)">Save</button>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <div class="form-group" *ngIf="! isEditProfile">
+            <div class="col-md-10 col-md-offset-2">
+                <button type="button" class="btn btn-link" (click)="onDelete()" [allowAccess]="'account.me.delete'">Delete</button>
+                <button type="button" class="btn btn-default" (click)="onStartEditMode()" [allowAccess]="'account.me.update'">Edit</button>
+            </div>
+        </div>
+
+        <div class="modal" *ngIf="isChangePassword">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" aria-hidden="true" (click)="closePasswordForm()">&times;</button>
+                        <h4 class="modal-title">Change Password</h4>
+                    </div>
+                    <div class="modal-body">
+                        <teleport-dev-portal-user-profile-password [user]="User" (onComplete)="closePasswordForm()"></teleport-dev-portal-user-profile-password>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>

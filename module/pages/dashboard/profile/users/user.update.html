@@ -1,0 +1,93 @@
+
+<div class="col-md-11" *ngIf="User">
+
+    <h4 class="text-uppercase">Modify User</h4>
+    <p>Update or delete a user.</p>
+
+    <form class="form-horizontal" (ngSubmit)="saveChanges()" #editUserForm="ngForm">
+
+        <fieldset [disabled]="! isEditing">
+
+            <div class="col-md-6">
+
+                <teleport-dev-portal-role-picker [user]="User" [ngStyle]="{ 'pointer-events': isEditing ? 'auto' : 'none' }"></teleport-dev-portal-role-picker>
+
+                <div class="form-group clearfix" [class.has-error]="! userfirstname.valid">
+                    <label for="user-firstName" class="col-md-3 control-label">First Name</label>
+                    <div class="col-md-8">
+                        <input id="user-firstName" class="form-control" type="text" minlength="2" maxlength="50" required
+                               [(ngModel)]="User.firstName" name="userfirstname" #userfirstname="ngModel">
+                        <span class="help-block">A <strong>first name</strong> is required.</span>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix" [class.has-error]="! userlastname.valid">
+                    <label for="user-lastName" class="col-md-3 control-label">Last Name</label>
+                    <div class="col-md-8">
+                        <input id="user-lastName" class="form-control" type="text" minlength="2" maxlength="50" required
+                               [(ngModel)]="User.lastName" name="userlastname" #userlastname="ngModel">
+                        <span class="help-block">A <strong>last name</strong> is required.</span>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix" [class.has-error]="! isEmailValid() || ! useremail.valid">
+                    <label for="user-email" class="col-md-3 control-label">Email</label>
+                    <div class="col-md-8">
+                        <input id="user-email" class="form-control" type="email" minlength="7" maxlength="50" required
+                               [(ngModel)]="User.email" name="useremail" #useremail="ngModel">
+                        <span class="help-block">A valid <strong>email address</strong> is required.</span>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <label for="user-phone" class="col-md-3 control-label">Phone Number</label>
+                    <div class="col-md-8">
+                        <input id="user-phone" class="form-control" type="tel" maxlength="20"
+                               [(ngModel)]="User.phoneNo" name="userphone" #userphone="ngModel">
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <label for="user-position" class="col-md-3 control-label">Position</label>
+                    <div class="col-md-8">
+                        <input id="user-position" class="form-control" type="text" maxlength="20"
+                               [(ngModel)]="User.position" name="userposition" #userposition="ngModel">
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <label for="user-notes" class="col-md-3 control-label">Notes</label>
+                    <div class="col-md-8">
+                        <input id="user-notes" class="form-control" type="text" maxlength="100"
+                               [(ngModel)]="User.notes" name="usernotes" #usernotes="ngModel">
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <label for="user-position" class="col-md-3 control-label">Status</label>
+                    <div class="col-md-8" style="line-height:36px">{{ User.status | uppercase }}</div>
+                </div>
+
+            </div>
+
+            <div class="form-group hide-on-disabled">
+                <div class="col-md-10 col-md-offset-2" style="margin-top:15px">
+                    <button type="button" class="btn btn-link" (click)="cancelChanges()">Cancel</button>
+                    <button type="submit" class="btn btn-success" [disabled]="! (editUserForm.form.valid || ! isUserValid())">Save</button>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <div class="form-group" *ngIf="! isEditing">
+            <div class="col-md-10 col-md-offset-2" style="margin-top:15px">
+                <button type="button" class="btn btn-link" (click)="deleteUser()" [allowAccess]="'account.users.delete'">Delete</button>
+                <button type="button" class="btn btn-default" (click)="editUser()" [allowAccess]="'account.users.update'">Edit</button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<div class="full-block-busy" *ngIf="! User"></div>

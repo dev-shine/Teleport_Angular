@@ -1,0 +1,210 @@
+
+ui-bot {
+
+  div.bot-container {
+
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 500px;
+
+    background: #44444e;
+
+    box-shadow: 0 0 20px rgba(0, 0, 30, 0.7);
+
+    transition: left 1s;
+
+    @media(max-width: 500px) {
+      width: 100%;
+    }
+
+    &.hide-bot {
+      left: -500px;
+      box-shadow: none;
+    }
+  }
+
+  div.bot-header {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 40px;
+
+    background: #111116;
+
+    text-align: right;
+
+    button {
+      height: 34px;
+      width: 34px;
+      margin: 3px 6px;
+
+      background: #000;
+      border: 0;
+      border-radius: 4px;
+
+      color: white;
+      font-size: 16pt;
+    }
+  }
+
+  div.bot-history {
+
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    bottom: 40px;
+
+    margin: 0;
+    padding: 10px;
+
+    overflow: hidden;
+    overflow-y: auto;
+
+    div.bot-message {
+
+      overflow: hidden;
+      margin: 0 0 25px 0;
+      padding: 3px;
+      width: 100%;
+      height: auto;
+
+      border: 1px solid #44444e;
+      border-radius: 5px;
+
+      > h5 {
+        margin: 0;
+        padding: 0;
+        color: white;
+        font-size: 11pt;
+        font-weight: 600;
+        line-height: 14px;
+      }
+
+      > h6 {
+        margin: 0;
+        padding: 0;
+        color: #ccc;
+        font-size: 8pt;
+        font-weight: 400;
+        line-height: 20px;
+      }
+
+      > div {
+        color: white;
+        font-size: 11pt;
+        line-height: 15pt;
+      }
+
+      &.bot-message-user {
+        text-align: right;
+      }
+
+      &.bot-message-bot {
+
+      }
+
+      &.bot-card {
+
+        > div {
+          padding: 10px;
+
+          border-radius: 10px;
+          background: #f0f0f0;
+
+          color: #111;
+          font-size: 11pt;
+          line-height: 15pt;
+          font-weight: 400;
+
+          h1, h2, h3, h4, h5, h6 {
+            margin: 6px 0;
+            font-size: 20px;
+            color: black;
+          }
+
+          p {
+            font-weight: 100;
+          }
+        }
+      }
+
+      animation: bot-message-new 2s;
+    }
+  }
+
+  @keyframes bot-message-new {
+    0% {
+      border-color: #777;
+    }
+    100% {
+      border-color: #44444e;
+    }
+  }
+
+  div.bot-query {
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #111116;
+
+    input {
+      outline: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      padding: 0 48px 0 10px;
+      width: 100%;
+
+      background: #667068;
+
+      border: none;
+      box-shadow: none;
+      color: white;
+    }
+
+    button {
+      float: right;
+      height: 34px;
+      width: 34px;
+      margin: 3px 6px;
+
+      background: #000;
+      border: 0;
+      border-radius: 4px;
+
+      color: white;
+      font-size: 16pt;
+    }
+  }
+
+  div.bot-query-busy {
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+
+    background: rgba(100, 100, 160, 0.5);
+
+    text-align: center;
+
+    img {
+      margin-top: -38px;
+    }
+  }
+}

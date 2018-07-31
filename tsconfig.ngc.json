@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "outDir": "./bundle",
+    "sourceMap": true,
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "stripInternal": true,
+    "skipLibCheck": true,
+    "lib": [
+      "es2015",
+      "dom"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "./module/index.ts"
+  ],
+  "angularCompilerOptions": {
+    "genDir": "aot",
+    "skipTemplateCodegen": false,
+    "skipMetadataEmit": false
+  },
+  "awesomeTypescriptLoaderOptions": {
+    "compiler": "@angular/compiler-cli"
+  }
+}

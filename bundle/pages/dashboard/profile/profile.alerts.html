@@ -1,0 +1,58 @@
+
+<div class="col-md-12">
+
+    <h4 class="text-uppercase">Alerts</h4>
+
+    <p>Add and delete account balance alerts.</p>
+
+    <div class="row full-block-busy-container" style="margin-bottom:50px">
+
+        <div class="col-md-4 new-alert-panel">
+            <div>
+                <a class="btn btn-link btn-lg" [routerLink]="['/v1/account/alerts/create']" [allowAccess]="'account.alerts.create'">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Create New Alert
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 alert-panel" *ngFor="let alert of Alerts">
+            <div>
+
+                <h4>{{ alert.firstname }} {{ alert.lastname }}</h4>
+                <p>{{ alert.email }}</p>
+
+                <h5 *ngIf="alert.send_receipt_on_payment">
+                    <span class="glyphicon glyphicon-send" style="font-size:12pt; width:21px;"></span>
+                    Payment Receipts
+                </h5>
+
+                <h5 *ngIf="alert.account_balance.minutes_before_zero || (alert.account_balance.thresholds || []).length">
+                    <span class="glyphicon glyphicon-bell" style="font-size:12pt; width:21px;"></span>
+                    Balance Alerts
+                </h5>
+
+                <div *ngIf="alert.account_balance.minutes_before_zero">
+                    <span class="glyphicon glyphicon-time"></span>
+                    {{ alert.account_balance.minutes_before_zero | number }} minutes before $0.
+                </div>
+
+                <div *ngIf="(alert.account_balance.thresholds || []).length">
+                    <span class="glyphicon glyphicon-save"></span>
+                    <span *ngFor="let threshold of alert.account_balance.thresholds">
+                        ${{ threshold | number:'1.0' }}
+                    </span>
+                </div>
+
+                <p class="text-right">
+                    <button class="btn btn-link" type="button" (click)="onDelete(alert)" [disabled]="isBusy" [allowAccess]="'account.alerts.delete'">Delete</button>
+                </p>
+
+            </div>
+        </div>
+
+        <div class="full-block-busy" *ngIf="isBusy"></div>
+
+    </div>
+
+</div>

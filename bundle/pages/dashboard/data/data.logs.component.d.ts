@@ -1,0 +1,37 @@
+import { OnInit, OnDestroy } from "@angular/core";
+import { Location } from "@angular/common";
+import { Router } from "@angular/router";
+import "rxjs/add/operator/filter";
+import { Store } from "@ngrx/store";
+import { TeleportCoreState } from "teleport-module-services/services/ngrx/index";
+import { APIv1State } from "teleport-module-services/services/v1/ngrx/index";
+import { IApplication } from "teleport-module-services/services/v1/models/Application";
+import { ILog } from "../../../models/interfaces";
+import { LogsService, ILogsRequest } from "../../../services/logs.service";
+import { MessageService } from "../../../services/message.service";
+import { TeleportLoaderService } from "teleport-module-loader";
+export declare class TeleportDevPortalDataLogsComponent implements OnInit, OnDestroy {
+    private logs;
+    private messages;
+    private router;
+    private location;
+    private store$;
+    private loader;
+    filters: ILogsRequest;
+    private _logs;
+    private _apps;
+    private _subscriptions;
+    private _sortFuncs;
+    private _sortOn;
+    constructor(logs: LogsService, messages: MessageService, router: Router, location: Location, store$: Store<TeleportCoreState & APIv1State>, loader: TeleportLoaderService);
+    ngOnInit(): void;
+    ngOnDestroy(): void;
+    readonly Logs: ILog[];
+    readonly isTruncated: boolean;
+    readonly Apps: IApplication[];
+    sortLogs(sortOn?: string): void;
+    isSortOn(name: string): boolean;
+    getQueryFromUrl(): [ILogsRequest, string];
+    setQueryOnUrl(): void;
+    loadLogs(): void;
+}

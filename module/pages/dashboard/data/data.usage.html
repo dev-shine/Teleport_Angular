@@ -1,0 +1,61 @@
+
+<div class="col-md-12">
+
+    <h4 class="text-uppercase">Usage</h4>
+
+    <p>View your account's usage and billing charges.</p>
+
+    <div style="margin-bottom:50px;min-height:200px;">
+
+        <form class="logsFilter" (ngSubmit)="loadUsage()" #logsForm="ngForm">
+
+            <div class="form-group col-md-2">
+                <label for="beginDateInput">Begin Date/Time</label>
+                <md2-datepicker id="beginDateInput" name="beginDate" type="date" format="MM/DD/YYYY HH:mm" [(ngModel)]="filters.beginDate" [max]="filters.endDate"></md2-datepicker>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="endDateInput">End Date/Time</label>
+                <md2-datepicker id="endDateInput" name="endDate" type="date" format="MM/DD/YYYY HH:mm" [(ngModel)]="filters.endDate" [min]="filters.beginDate"></md2-datepicker>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="appIdInput">App ID</label>
+                <select class="form-control" id="appIdInput" [(ngModel)]="filters.appId" name="appId">
+                    <option value="">All Apps</option>
+                    <option *ngFor="let app of Apps" [value]="app.name">{{ app.friendlyName }} ({{ app.name.slice(0,5) }}...{{ app.name.slice(-5) }})</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-5" style="padding-top:28px; text-align:right;">
+                <button type="submit" class="btn btn-success">Search</button>
+            </div>
+
+        </form>
+
+        <table *ngIf="Usage?.length > 1" class="table usage-table" style="font-size:12pt">
+            <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>Quantity</th>
+                <th>Average</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let usage of Usage; let isFirst = first;" class="usage-table-row-{{usage.type}}">
+                <td>{{ usage.description }}</td>
+                <td>{{ usage.quantity | number:"1.1-1" }}</td>
+                <td><span *ngIf="isFirst">$</span>{{ usage.average | number:"1.4-4" }}</td>
+                <td><span *ngIf="isFirst">$</span>{{ usage.total | number:"1.4-4" }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h4 *ngIf="Usage?.length === 1" class="text-center">
+            <br><br>No usage was found during the specified time period.
+        </h4>
+
+    </div>
+
+</div>

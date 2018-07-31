@@ -1,0 +1,72 @@
+
+<div class="row">
+
+    <div class="col-md-4 col-md-offset-4" style="padding-top:50px">
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <h4 class="text-center">Portal Login</h4>
+
+                <form class="form-horizontal" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+
+                    <div class="form-group" [class.has-error]="! isEmailValid(username.value)">
+                        <label class="col-md-2 control-label" for="dev-login-username">Email</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="dev-login-username" type="email" name="username" required
+                                   [(ngModel)]="userName" #username="ngModel">
+                        </div>
+                    </div>
+
+                    <div class="form-group" [class.has-error]="! isPasswordValid(password.value)">
+                        <label class="col-md-2 control-label" for="dev-login-password">Password</label>
+                        <div class="col-md-10">
+                            <input class="form-control" id="dev-login-password" type="password" name="password" minlength="8" required
+                                   [(ngModel)]="passWord" #password="ngModel">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 text-center">
+                            <button class="btn btn-success" type="submit" [disabled]="! (loginForm.form.valid && isEmailValid(username.value) && isPasswordValid(password.value))">Login</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12 text-center">
+                <a class="btn btn-link" [routerLink]="['/forgot-password']">Forgot your password?</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="login-user-list animated bounceIn" *ngIf="(userLogins | async)?.length > 0">
+
+    <h4 class="text-center">Multiple Accounts Found</h4>
+
+    <div class="list-group">
+
+        <h5 class="text-center">User Accounts</h5>
+
+        <a class="list-group-item" *ngFor="let d of userLogins | async" (click)="loginAs(d)">
+            <h5 class="list-group-item-heading">{{ d.fullName }} <small>({{ d.userType }})</small></h5>
+            <div>Acct <strong>{{ d.accountOwner }}</strong> // Position <strong>{{ d.role || '--' }}</strong></div>
+        </a>
+
+    </div>
+
+    <div class="text-right">
+        <button type="button" class="btn btn-link" (click)="closeMultiLogin()">Cancel</button>
+    </div>
+
+</div>
+
+<teleport-loader-ui></teleport-loader-ui>

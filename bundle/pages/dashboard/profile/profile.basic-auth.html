@@ -1,0 +1,67 @@
+
+<div class="col-md-11">
+
+    <h4 class="text-uppercase">Credentials</h4>
+
+    <p>Manage the account's basic auth credentials.</p>
+
+
+    <h4>
+        Account Credentials (Basic Auth)
+        <button *ngIf="Credentials.length <= 10" type="button" class="btn btn-link" (click)="create()" [allowAccess]="'account.credentials.create'">Generate Credential</button>
+        <small *ngIf="Credentials.length > 10">Max of 10 Credentials Reached</small>
+    </h4>
+
+    <p>
+        Basic Auth Credentials are for all Account-level API requests, including /Applications, /Logs, /Alerts, /Recordings, and /Payments.
+    </p>
+
+    <table *ngIf="Credentials" class="table">
+
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Authorization Header</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let cred of Credentials">
+            <td>
+                <input title="Username" class="form-control" type="password" [value]="cred.userName" (focus)="apiKeyInputFocus($event)" (blur)="apiKeyInputBlur($event)"
+                       [allowAccess]="'account.credentials.read'" readonly>
+            </td>
+            <td>
+                <input title="Password" class="form-control" type="password" [value]="cred.password" (focus)="apiKeyInputFocus($event)" (blur)="apiKeyInputBlur($event)"
+                       [allowAccess]="'account.credentials.read'" readonly>
+            </td>
+            <td>
+                <input title="Authorization" class="form-control" type="password" [value]="cred.authorization" (focus)="apiKeyInputFocus($event)" (blur)="apiKeyInputBlur($event)"
+                       [allowAccess]="'account.credentials.read'" readonly>
+            </td>
+            <td class="text-right">
+                <button type="button" class="btn btn-link" (click)="remove(cred)" [disabled]="Credentials.length === 0" [allowAccess]="'account.credentials.delete'">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <h5 class="text-center" [hidden]="Credentials">Madness! You must have at least one Basic Auth credential.</h5>
+
+    <p>&nbsp;</p>
+
+    <h4>
+        Application Credentials (API Key)
+        <button type="button" class="btn btn-link" [routerLink]="['/v1/applications']" [allowAccess]="'account.applications.app.read'">View Applications</button>
+    </h4>
+    <p>
+        All other requests use an API Key that can be found under your individual <a [routerLink]="['/v1/applications']" [allowAccess]="'account.applications.app.read'">Applications</a>.
+    </p>
+
+
+    <div class="full-block-busy" *ngIf="isBusy"></div>
+
+</div>

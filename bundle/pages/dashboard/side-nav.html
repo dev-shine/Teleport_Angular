@@ -1,0 +1,95 @@
+
+<!-- Account -->
+
+<h4 class="text-uppercase visible-sm-block visible-xs-block"
+    [style.font-weight]="routeStartsWith('/dashboard/account') ? 'bold': 'normal'"
+    [routerLink]="['/dashboard/account']">Account</h4>
+
+<div *ngIf="routeStartsWith('/dashboard/account')">
+    <h4 class="text-uppercase visible-md-block visible-lg-block">Account</h4>
+    <ul>
+        <li [class.active]="routeIs('/dashboard/account')">
+            <a [routerLink]="['/dashboard/account']"             [allowAccess]="'account.me.read'">My Profile</a></li>
+        <li [class.active]="routeIs('/dashboard/account/users')">
+            <a [routerLink]="['/dashboard/account/users']"       [allowAccess]="'account.users.read'">Users</a>
+        </li>
+        <li [class.active]="routeStartsWith('/dashboard/account/payments')">
+            <a [routerLink]="['/dashboard/account/payments']"    [allowAccess]="'account.billing.payments.read'">Payments</a></li>
+        <li [class.active]="routeIs('/dashboard/account/alerts')">
+            <a [routerLink]="['/dashboard/account/alerts']"      [allowAccess]="'account.alerts.read'">Alerts</a>
+        </li>
+        <li [class.active]="routeIs('/dashboard/account/credentials')">
+            <a [routerLink]="['/dashboard/account/credentials']" [allowAccess]="'account.credentials.read'">Credentials</a>
+        </li>
+    </ul>
+</div>
+
+
+<!-- Applications -->
+
+<h4 class="text-uppercase visible-sm-block visible-xs-block"
+    [style.font-weight]="routeStartsWith('/dashboard/applications') ? 'bold': 'normal'"
+    [routerLink]="['/dashboard/applications']">Applications</h4>
+
+<div *ngIf="routeStartsWith('/dashboard/applications')">
+    <h4 class="text-uppercase visible-md-block visible-lg-block">Applications</h4>
+    <ul>
+        <li [class.active]="routeIs('/dashboard/applications')">
+            <a [routerLink]="['/dashboard/applications']">Manage</a>
+        </li>
+        <li *ngIf="routeMatches('^/dashboard/applications/[^/]+')">
+            <strong><a [routerLink]="['/dashboard/applications', params.appId]">Application</a></strong>
+            <ul>
+                <li [class.active]="routeMatches('^/dashboard/applications/[^/]+/integrations/aws')">
+                    <a [routerLink]="['/dashboard/applications', params.appId, 'integrations', 'aws']">Recording Storage</a>
+                </li>
+                <li [class.active]="routeMatches('^/dashboard/applications/[^/]+/integrations/watson')">
+                    <a [routerLink]="['/dashboard/applications', params.appId, 'integrations', 'watson']">Text To Speech</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+<!-- Usage -->
+
+<h4 class="text-uppercase visible-sm-block visible-xs-block"
+    [style.font-weight]="routeStartsWith('/dashboard/usage') ? 'bold': 'normal'"
+    [routerLink]="['/dashboard/usage']">Usage</h4>
+
+<div *ngIf="routeStartsWith('/dashboard/usage')">
+    <h4 class="text-uppercase visible-md-block visible-lg-block">Usage</h4>
+    <ul>
+        <li [class.active]="routeStartsWith('/dashboard/usage')"><a [routerLink]="['/dashboard/usage']">Account Usage</a></li>
+    </ul>
+</div>
+
+
+<!-- Logs -->
+
+<h4 class="text-uppercase visible-sm-block visible-xs-block"
+    [style.font-weight]="routeStartsWith('/dashboard/logs') ? 'bold': 'normal'"
+    [routerLink]="['/dashboard/logs']">Logs</h4>
+
+<div *ngIf="routeStartsWith('/dashboard/logs')">
+    <h4 class="text-uppercase visible-md-block visible-lg-block">Logs</h4>
+    <ul>
+        <li [class.active]="routeStartsWith('/dashboard/logs')"><a [routerLink]="['/dashboard/logs']">Call Logs</a></li>
+    </ul>
+</div>
+
+
+<!-- Support -->
+
+<h4 class="text-uppercase visible-sm-block visible-xs-block"
+    [style.font-weight]="routeStartsWith('/dashboard/support') ? 'bold': 'normal'"
+    [routerLink]="['/dashboard/support']">Support</h4>
+<div *ngIf="routeStartsWith('/dashboard/support')">
+    <h4 class="text-uppercase visible-md-block visible-lg-block">Support</h4>
+    <ul></ul>
+</div>
+
+<p>&nbsp;</p>
+
+<!-- End Menu -->

@@ -1,0 +1,32 @@
+import { OnInit, OnDestroy } from "@angular/core";
+import { Router } from "@angular/router";
+import "rxjs/add/operator/filter";
+import "rxjs/add/operator/map";
+import { Store } from "@ngrx/store";
+import { TeleportCoreState } from "teleport-module-services/services/ngrx/index";
+import { IUser } from "teleport-module-services/services/v1/models/User";
+import { UserService } from "../../../services/user.service";
+import { MessageService } from "../../../services/message.service";
+import { ModalService } from "../../../services/modal.service";
+export declare class TeleportDevPortalUserProfileComponent implements OnInit, OnDestroy {
+    private router;
+    private users;
+    private modal;
+    private messages;
+    private store$;
+    User: IUser;
+    isBusy: boolean;
+    isEditProfile: boolean;
+    isChangePassword: boolean;
+    private _user;
+    private _subscription;
+    constructor(router: Router, users: UserService, modal: ModalService, messages: MessageService, store$: Store<TeleportCoreState>);
+    ngOnInit(): void;
+    ngOnDestroy(): void;
+    onStartEditMode(): void;
+    closePasswordForm(): void;
+    isEmailValid(email: string): boolean;
+    onSubmit(): void;
+    onDelete(): void;
+    onCancel(): void;
+}

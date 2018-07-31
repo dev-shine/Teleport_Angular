@@ -1,0 +1,114 @@
+
+$clrDk: #404254;
+$clrMd: #555658; // #3f5765;
+$clrLt: #c9cacb;
+$clrBg: #f6f7f8;
+$clrHit: #F7A800; // #ff530d;
+
+$clrLeftSideNav: #009bde; // #38B0DE;
+
+@import "animate";
+@import "applications";
+@import "alerts";
+@import "form";
+@import "navs";
+@import "messages";
+@import "logs-page";
+@import "portal-users";
+@import "role-picker";
+@import "recaptcha";
+@import "registration-page";
+@import "bot";
+
+
+body {
+  font-family: "Open Sans", Roboto, sans-serif !important;
+  letter-spacing: 1px;
+  background: $clrBg;
+
+  @media (min-width: 993px) {
+    background: url('../img/bg-with-bar.png');
+    background-size: contain;
+    // background: linear-gradient(to right, $clrLeftSideNav 16.666%, $clrLeftSideNav 16.666%, $clrBg 16.666%);
+  }
+
+  &.no-nav {
+    background: $clrBg !important;
+  }
+}
+
+button, a {
+  outline: none !important;
+}
+
+button.btn-default:hover {
+  background-color: $clrHit;
+  color: white;
+}
+
+div.full-block-busy-container {
+  position: relative;
+}
+
+div.full-block-busy {
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 800;
+
+  background: rgba($clrBg, 0.8) center center url('../img/squares.svg') no-repeat;
+
+  animation: fadeIn 500ms;
+}
+
+.ani-spin {
+  animation: rotate360 2s linear infinite;
+}
+
+@keyframes rotate360 {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+div.modal {
+
+  @extend .animated;
+
+  display: block;
+  background: rgba(0,0,0,0.2);
+
+  animation: fadeIn 500ms;
+
+  div.modal-dialog {
+
+    @extend .animated;
+    animation: slideInDown 500ms;
+
+    div.modal-header {
+      h4 {
+        font-size: 16pt;
+      }
+    }
+
+    div.modal-body {
+      font-size: 12pt;
+    }
+  }
+}
+
+.block-access {
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+
+md2-datepicker {
+
+  div.md2-datepicker-input > svg {
+    display: none;
+  }
+}

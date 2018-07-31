@@ -1,0 +1,43 @@
+
+div.registration-block {
+
+  @media (min-width: 993px) {
+
+    float: none;
+    padding-top: 50px;
+    margin: auto;
+    min-width: 600px;
+  }
+
+}
+
+
+div.login-user-list {
+
+  position: absolute;
+  margin: 0 -225px;
+  padding: 10px;
+  top: 100px;
+  left: 50%;
+
+  width: 450px;
+
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+
+  > h4 {
+    font-weight: bold;
+  }
+
+  a {
+    text-align: center;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 500px) {
+    margin:0;
+    width: 100%;
+    left: 0;
+  }
+}

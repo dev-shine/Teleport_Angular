@@ -1,0 +1,24 @@
+
+<div>
+
+    <h4 class="text-uppercase">Payment Settings</h4>
+    <p>View your current payment settings.</p>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Default Payment Method</h5>
+            <div class="col-md-6" style="min-height:80px; transition:height 500ms; background:url('img/squares.svg') center center no-repeat; background-size: contain;">
+                <form style="margin:0">
+                    <div id="dropin-container" style="background:#f6f7f8" [allowAccess]="'account.billing.payments.update'"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <teleport-dev-portal-top-up></teleport-dev-portal-top-up>
+        </div>
+    </div>
+
+</div>

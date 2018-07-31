@@ -1,0 +1,100 @@
+
+<div class="col-md-11">
+
+    <h4 class="text-uppercase">Manage</h4>
+    <p>
+        Add, modify and delete applications.
+        <strong class="pull-right" *ngIf="Developer"> Active: {{ totalApps }} / Used: {{ Developer.numApps }} / Available: {{ Developer.maxApps - Developer.numApps }}</strong>
+    </p>
+
+    <nav class="navbar navbar-default hidden-xs hidden-sm">
+        <div class="container-fluid">
+
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav" style="cursor:pointer">
+                    <li>
+                        <a (click)="toggleSort('Name')">
+                            Name
+                            <span *ngIf="hasSort('sortByNameAsc')" class="glyphicon glyphicon-sort-by-attributes"></span>
+                            <span *ngIf="hasSort('sortByNameDesc')" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                            <span *ngIf="! hasSort('sortByNameAsc') && ! hasSort('sortByNameDesc')" class="glyphicon glyphicon-option-vertical"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="toggleSort('Notes')">
+                            Notes
+                            <span *ngIf="hasSort('sortByNotesAsc')" class="glyphicon glyphicon-sort-by-attributes"></span>
+                            <span *ngIf="hasSort('sortByNotesDesc')" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                            <span *ngIf="! hasSort('sortByNotesAsc') && ! hasSort('sortByNotesDesc')" class="glyphicon glyphicon-option-vertical"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="toggleSort('CreatedOn')">
+                            Created On
+                            <span *ngIf="hasSort('sortByCreatedOnAsc')" class="glyphicon glyphicon-sort-by-attributes"></span>
+                            <span *ngIf="hasSort('sortByCreatedOnDesc')" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                            <span *ngIf="! hasSort('sortByCreatedOnAsc') && ! hasSort('sortByCreatedOnDesc')" class="glyphicon glyphicon-option-vertical"></span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="cursor:pointer">
+                    <li [ngClass]="{active: showNum === 20}"><a (click)="showNum = 20">20</a></li>
+                    <li [ngClass]="{active: showNum === 50}"><a (click)="showNum = 50">50</a></li>
+                    <li [ngClass]="{active: showNum === 100}"><a (click)="showNum = 100">100</a></li>
+                    <li [ngClass]="{active: showNum === 999999}"><a (click)="showNum = 999999">All</a></li>
+                </ul>
+                <form style="width:33%" class="navbar-form navbar-right" role="search">
+                    <div style="width:100%" class="form-group">
+                        <input style="width:100%" type="text" class="form-control" placeholder="Search by Name, Notes and ID" name="filterOn" [(ngModel)]="filterOn">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="row full-block-busy-container" style="margin-bottom:50px; min-height:200px">
+
+        <div class="col-md-12 app-panel text-center" *ngIf="!isBusy && Applications && Applications.length === 0">
+            <h4 style="margin-top:60px">Getting started?</h4>
+            <h4 style="font-size:16px">Create an Application to get&nbsp;your&nbsp;API&nbsp;Key.</h4>
+            <a class="btn btn-link btn-lg" [routerLink]="['/v1/applications/create']" [allowAccess]="'account.applications.app.create'">
+                <span class="glyphicon glyphicon-plus"></span>
+                Create New App
+            </a>
+        </div>
+
+        <div class="col-md-4 new-app-panel" *ngIf="Applications && Applications.length > 0">
+            <div>
+                <a class="btn btn-link btn-lg" [routerLink]="['/v1/applications/create']" [allowAccess]="'account.applications.app.create'">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Create New App
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 app-panel" *ngFor="let app of Applications">
+            <div>
+
+                <h4>{{ app.friendlyName }}</h4>
+                <p>
+                    Last update <strong>{{ app.lastModifiedAt | date:'short' }}</strong>
+                </p>
+
+                <h5>{{ app.notes }}</h5>
+
+                <p>
+                    <small class="pull-left">ID {{ app.name | slice:0:5 }}...{{ app.name | slice:-5 }}</small>
+                    <a class="btn btn-link pull-right" [routerLink]="['/v1/applications/', app.name]"
+                       [allowAccess]="'account.applications.app.read account.applications.app.update account.applications.app.delete'"
+                    >Switch</a>
+                </p>
+
+            </div>
+        </div>
+
+        <div class="full-block-busy" *ngIf="isBusy"></div>
+
+    </div>
+
+</div>

@@ -1,0 +1,19 @@
+<form (ngSubmit)="loginDeveloper()">
+
+    <h4>Developer Login</h4>
+
+    <div>
+        <label for="dev-login-username">Username</label>
+        <input id="dev-login-username" type="text" [(ngModel)]="userName" (keyup)="clearInputs($event)">
+    </div>
+
+    <div>
+        <label for="dev-login-password">Password</label>
+        <input id="dev-login-password" type="password" [(ngModel)]="password" (keyup)="clearInputs($event)">
+    </div>
+
+    <p>&nbsp;{{errorMessage}}&nbsp;</p>
+
+    <button type="submit">Login</button>
+
+</form>

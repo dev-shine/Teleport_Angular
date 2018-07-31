@@ -1,0 +1,44 @@
+
+<div class="col-md-10 full-block-busy-container">
+
+    <h4 class="text-uppercase">New Application</h4>
+
+    <p>Setup a new application with API key credentials.</p>
+
+    <form class="form-horizontal" (ngSubmit)="onSubmitCreateApp()" #newAppForm="ngForm">
+
+        <fieldset>
+
+            <div class="form-group clearfix" [class.has-error]="! appname.valid">
+                <label for="app-name" class="col-md-2 control-label">Friendly Name</label>
+                <div class="col-md-8">
+                    <input id="app-name" class="form-control" type="text" minlength="4" maxlength="50" required
+                           [(ngModel)]="appName" name="appname" #appname="ngModel">
+                    <span class="help-block">The <strong>application name</strong> must be at least four characters.</span>
+                </div>
+            </div>
+
+            <div class="form-group clearfix">
+                <label for="app-notes" class="col-md-2 control-label">Notes</label>
+                <div class="col-md-8">
+                    <input id="app-notes" class="form-control" type="text" maxlength="200"
+                           [(ngModel)]="appNotes" name="appnotes" #appnotes="ngModel">
+                </div>
+            </div>
+
+            <div class="form-group clearfix">
+                <div class="col-md-10 text-right">
+                    <button class="btn btn-link" [routerLink]="['/v1/applications']">Cancel</button>
+                    <button class="btn btn-success" type="submit" [disabled]="! newAppForm.form.valid" [allowAccess]="'account.applications.app.create'">Create</button>
+                </div>
+            </div>
+
+        </fieldset>
+
+    </form>
+
+    <div class="full-block-busy" *ngIf="isBusy">
+        <h4 class="text-center" style="position:absolute; width:100%;top:70%;">Please wait... This will take a minute.</h4>
+    </div>
+
+</div>

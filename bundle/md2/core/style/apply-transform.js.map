@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../module/md2/core/style/apply-transform.ts"],"names":[],"mappings":"AAKA,MAAM,4BAA4B,OAAoB,EAAE,cAAsB;IAG5E,IAAI,KAAK,GAAG,cAAc,CAAC,IAAI,EAAE,CAAC;IAElC,OAAO,CAAC,KAAK,CAAC,SAAS,GAAG,KAAK,CAAC;IAChC,OAAO,CAAC,KAAK,CAAC,eAAe,GAAG,KAAK,CAAC;AACxC,CAAC","file":"apply-transform.js","sourceRoot":""}

@@ -1,0 +1,67 @@
+
+<div class="col-md-11">
+
+    <h4>TEXT TO SPEECH</h4>
+    <p>Should you require additional voice and language options, you can use your own TTS service.</p>
+
+    <h5>IBM Watson Text To Speech</h5>
+    <p>Enter your IBM Watson Text To Speech service credentials below. Watson is an IBM Bluemix service.</p>
+
+    <div style="margin-bottom:50px;min-height:200px;">
+
+        <form *ngIf="App && Watson" class="form-horizontal" (ngSubmit)="save()" #editAppForm="ngForm">
+
+            <fieldset [disabled]="! isEditing">
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">App ID</label>
+                    <div class="col-md-10" style="line-height:36px">{{ App.name }}</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">App Name</label>
+                    <div class="col-md-10" style="line-height:36px">{{ App.friendlyName }}</div>
+                </div>
+
+
+                <div class="form-group" [class.has-error]="! accesskey.valid">
+                    <label for="edit-access-key" class="col-md-2 control-label">Username</label>
+                    <div class="col-md-5">
+                        <input id="edit-access-key" class="form-control" type="text" required
+                               placeholder="No Username"
+                               [(ngModel)]="username" name="accesskey" #accesskey="ngModel">
+                        <span class="help-block">The <strong>Username</strong> is required.</span>
+                    </div>
+                </div>
+
+                <div class="form-group" [class.has-error]="! securitykey.valid">
+                    <label for="edit-security-key" class="col-md-2 control-label">Password</label>
+                    <div class="col-md-5">
+                        <input id="edit-security-key" class="form-control" type="password" required
+                               placeholder="No Password"
+                               [(ngModel)]="password" name="securitykey" #securitykey="ngModel">
+                        <span class="help-block">The <strong>Password</strong> is required.</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group hide-on-disabled">
+                    <div class="col-md-10 col-md-offset-2" style="margin-top:15px">
+                        <button type="button" class="btn btn-link" (click)="cancel()">Cancel</button>
+                        <button type="submit" class="btn btn-success" [disabled]="! (editAppForm.form.valid || editAppForm.form.pristine)">Save</button>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="form-group" *ngIf="! isEditing">
+                <div class="col-md-10 col-md-offset-2" style="margin-top:15px">
+                    <button type="button" class="btn btn-link" (click)="clear()" [allowAccess]="'account.applications.app.update'">Delete</button>
+                    <button type="button" class="btn btn-default" (click)="edit()" [allowAccess]="'account.applications.app.update'">Edit</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
